@@ -1,2 +1,4 @@
 Flask
 gunicorn
+sqlalchemy="2.0.35"
+pymysql 
