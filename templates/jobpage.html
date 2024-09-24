@@ -27,7 +27,9 @@
         </ol>
         <h4>Salary</h4>
         <p class="lead">{{job.currency}}{{job.salary}}</p>
-    </div>
+
+        {% include 'application_form.html' %}
+    </div>    
     {% include 'footer.html' %}
 </body>
 </html>

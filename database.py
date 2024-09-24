@@ -86,5 +86,20 @@ def insert_job(job):
     connection.close()  # Close the connection after use
     return last_id
 
+
+def add_application_to_db(job_id, application):
+    connection = get_connection()
+    cursor = connection.cursor()
+    query = ("INSERT INTO applications "
+            "(job_id, full_name, email, linkedin_url, education, experience, resume_url)"
+             "VALUES (%s, %s, %s, %s, %s, %s, %s);")
+    data = (job_id, application['full_name'], application['email'], application['linkedin_url'], application['education'], application['experience'], application['resume_url'])
+    cursor.execute(query, data)
+    connection.commit()
+
+    last_id = cursor._last_insert_id
+    cursor.close()
+    return last_id
+
 if __name__ == '__main__':
     print(load_jobs_from_db(), end='\n\n\n')
