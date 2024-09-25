@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'bootstrap.html' %}
+  <title>Application Dashboard</title>
+  <style>
+    /* Make the table scrollable on small screens */
+    .table-responsive {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    /* Optional: Shorten the link display */
+    .text-truncate {
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+  {% include 'nav.html' %}
+  {% include 'banner.html' %}
+    <div class="container">
+        <h1 class="text-center mt-2 mb-4">Jovian Careers</h1>
+        <h4 class="text-center mt-2 mb-4">Application Dashboard</h4>
+
+        <!-- Make the table responsive and scrollable -->
+        <div class="table-responsive p-4">
+          <table class="table table-bordered">
+            <thead class="thead-light">
+              <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>LinkedIn URL</th>
+                <th>Education</th>
+                <th>Work Experience</th>
+                <th>Resume URL</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for application in applications %}
+              <tr>
+                <td>{{application.full_name}}</td>
+                <td>{{application.email}}</td>
+                <td><a href="{{application.linkedin_url}}" class="text-truncate" target="_blank">View Profile</a></td>
+                <td>{{application.education}}</td>
+                <td>{{application.experience}}</td>
+                <td><a href="{{application.resume_url}}" class="text-truncate" target="_blank">Download Resume</a></td>
+                <td>{{application.status}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        
+    </div>
+  {% include 'footer.html' %}
+</body>
+</html>

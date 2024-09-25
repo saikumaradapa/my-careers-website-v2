@@ -35,6 +35,18 @@ def test(id):
                           application=application
                           )
 
+@app.route('/api/applications')
+def list_applications():
+    applications = load_applications_from_db()
+    return jsonify(applications)
+
+@app.route('/applications')
+def show_applications():
+    applications = load_applications_from_db()
+    return render_template('applications_dashboard.html', 
+                           applications=applications,
+                           )
+
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', debug=True)

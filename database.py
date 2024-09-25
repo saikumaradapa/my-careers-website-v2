@@ -1,3 +1,4 @@
+from flask import jsonify
 import mysql.connector
 import os
 from dotenv import load_dotenv
@@ -101,5 +102,46 @@ def add_application_to_db(job_id, application):
     cursor.close()
     return last_id
 
+def load_applications_from_db():
+    connection = get_connection()  # Establish a new connection each time
+    cursor = connection.cursor()
+
+    query = """
+    SELECT id, job_id, full_name, email, linkedin_url, education, experience, resume_url, created_at, updated_at 
+    FROM applications
+    """
+
+    cursor.execute(query)
+    applications = []
+
+    for (id, job_id, full_name, email, linkedin_url, education, experience, resume_url, created_at, updated_at) in cursor:
+        applications.append({
+            'id': id,
+            'job_id': job_id,
+            'full_name': full_name,
+            'email': email,
+            'linkedin_url': linkedin_url,
+            'education': education,
+            'experience': experience,
+            'resume_url': resume_url,
+            'created_at': created_at,
+            'updated_at': updated_at
+        })
+
+    cursor.close()
+    connection.close()
+
+    return applications
+
+
+def get_columns(table_name):
+    connection = get_connection()  # Establish a new connection each time
+    cursor = connection.cursor()
+    query = "SHOW COLUMNS FROM " + table_name
+    cursor.execute(query)
+    columns = [column[0] for column in cursor.fetchall()]
+    return columns
+
 if __name__ == '__main__':
-    print(load_jobs_from_db(), end='\n\n\n')
+    # print(load_applications_from_db(), end='\n\n\n')
+    print(get_columns('applications'))
