@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% include 'bootstrap.html' %}
-    <title>{{job.title}} - Application Submitted</title>
+    <title>{{application['job_title']}} - Application Submitted</title>
 </head>
 <body>
     {% include 'banner.html' %}
@@ -10,7 +10,7 @@
 
     <div class="container">
         <h1 class="text-center mt-2 mb-4"> Jovian Careers </h1>    
-        <p>Your application for the role of <b>{{job['title']}}</b> at Jovian has been submitted!</p>
+        <p>Your application for the role of <b>{{application['job_title']}}</b> at Jovian has been submitted!</p>
 
         <b class="mb-0">Full Name</b>
         <div class="mb-2"> {{application['full_name']}} </div>

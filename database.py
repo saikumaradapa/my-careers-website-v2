@@ -142,6 +142,35 @@ def get_columns(table_name):
     columns = [column[0] for column in cursor.fetchall()]
     return columns
 
+
+def load_application_with_id(id):
+    connection = get_connection()  # Establish a new connection each time
+    cursor = connection.cursor()
+
+    query = """
+    SELECT a.id, j.title, a.full_name, a.email, a.linkedin_url, a.education, a.experience, a.resume_url, a.created_at FROM applications a        JOIN jobs j ON a.job_id = j.id WHERE a.id = %s;
+    """
+
+    cursor.execute(query, (id,))
+    application = cursor.fetchone()  # Fetch the single result immediately
+
+    cursor.close()
+    connection.close()  # Close the connection after use
+
+    if application:
+        return {
+            'id': application[0],
+            'job_title': application[1],
+            'full_name': application[2],
+            'email': application[3],
+            'linkedin_url': application[4],
+            'education': application[5],
+            'experience': application[6],
+            'resume_url': application[7],
+            'created_at': application[8]
+        }
+    return None 
+
 if __name__ == '__main__':
-    # print(load_applications_from_db(), end='\n\n\n')
-    print(get_columns('applications'))
+    print(load_application_with_id(60), end='\n\n\n')
+    # print(get_columns('applications'))
