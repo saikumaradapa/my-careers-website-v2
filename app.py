@@ -67,4 +67,4 @@ def job_apply_error():
     return render_template('not_found_page.html', text=text), 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
